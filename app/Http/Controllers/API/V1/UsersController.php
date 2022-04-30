@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
-use App\Repositories\UserInterface;
+use App\Repositories\User\UserInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 
@@ -16,9 +16,9 @@ class UsersController extends Controller
         $this->users_repo = $user_contract;
     }
 
-    public function store(CreateUserRequest $request)
+    public function create(CreateUserRequest $request)
     {
-        # code ...
+
     }
 
 }
