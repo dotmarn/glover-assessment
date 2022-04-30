@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('user_requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('requester_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->enum('request_type',['create', 'update', 'delete']);
             $table->json('payload');
             $table->enum('status',['pending', 'approved', 'declined'])->default('pending');
