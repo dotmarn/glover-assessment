@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\User\UserInterface;
 
 class UsersController extends Controller
@@ -55,6 +56,11 @@ class UsersController extends Controller
             'message' => "Request has been {$type} successfully.",
             'data' => null
         ], Response::HTTP_OK);
+
+    }
+
+    public function update(UpdateUserRequest $request)
+    {
 
     }
 

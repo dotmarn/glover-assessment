@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CreateUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,9 +17,10 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname' => ['required', 'string'],
-            'lastname' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:users,email']
+            'user_id' => ['required', 'integer'],
+            'firstname' => ['nullable', 'string'],
+            'lastname' => ['nullable', 'string'],
+            'email' => ['nullable', 'email', 'unique:users,email,'.$this->user_id]
         ];
     }
 
