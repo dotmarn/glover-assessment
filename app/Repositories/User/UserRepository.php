@@ -48,9 +48,17 @@ class UserRepository implements UserInterface
         return $data;
     }
 
-    public function delete($request)
+    public function delete($id)
     {
-        # code...
+        $data = $this->user_request->create([
+            'admin_id' => \request()->user()->id,
+            'request_type' => RequestType::DELETE,
+            'user_id' => $id
+        ]);
+
+        $this->notifyAdmin();
+
+        return $data;
     }
 
     public function fetch()

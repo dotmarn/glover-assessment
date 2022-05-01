@@ -8,7 +8,7 @@ interface UserInterface
 
     public function update(array $request);
 
-    public function delete($request);
+    public function delete($user_id);
 
     public function fetch();
 
