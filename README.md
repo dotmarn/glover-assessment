@@ -43,3 +43,15 @@ Here is how you can run the project locally:
     ``` 
 
 ## API Endpoints
+
+1. Administrator login
+    ```sh
+    /api/auth/login
+    ```
+    ### payload
+    ```json
+    {
+        "email": "admin00@sample.test",
+        "password": "glover1234"
+    }
+    ```
