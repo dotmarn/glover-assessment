@@ -55,11 +55,29 @@ Here is how you can run the project locally:
         "password": "glover1234"
     }
     ```
+    ### sample response
+    ```json
+    {
+        "status": 200,
+        "message": "Login is successful",
+        "data": {
+            "id": 1,
+            "firstname": "Oliver",
+            "lastname": "Jones",
+            "email": "admin00@sample.test",
+            "email_verified_at": null,
+            "created_at": "2022-04-30T09:03:56.000000Z",
+            "updated_at": "2022-04-30T09:03:56.000000Z",
+            "token": "9|We78eFxqIzORUgdtg3PSbL4wI127qoXjCaqOw1hz"
+        }
+    }
+    ```
+
 1. Administrator logout
     ```
     /api/auth/logout
     ```
     ### Header
     ```json
-    Authorization: Bearer {{ token }}
+    "Authorization": "Bearer {{ token }}"
     ```
