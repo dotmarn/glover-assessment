@@ -18,13 +18,13 @@ Here is how you can run the project locally:
     - set database credentials (`DB_DATABASE=glover_assessment`, `DB_USERNAME=root`, `DB_PASSWORD=`)
     > Make sure to follow your database username and password
 
-1. Generate app key 
-    ```sh
-    php artisan key:generate
-    ```
 1. Install PHP dependencies 
     ```sh
     composer install
+    ```
+1. Generate app key 
+    ```sh
+    php artisan key:generate
     ```
 1. Run migration
     ```
