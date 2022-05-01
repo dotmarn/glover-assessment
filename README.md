@@ -15,7 +15,7 @@ Here is how you can run the project locally:
 1. Create database `glover_assessment` (you can change database name)
 
 1. Go to `.env` file 
-    - set database credentials (`DB_DATABASE=velflix`, `DB_USERNAME=root`, `DB_PASSWORD=`)
+    - set database credentials (`DB_DATABASE=glover_assessment`, `DB_USERNAME=root`, `DB_PASSWORD=`)
     > Make sure to follow your database username and password
 
 1. Generate app key 
@@ -42,3 +42,4 @@ Here is how you can run the project locally:
     php artisan serve
     ``` 
 
+## API Endpoints
