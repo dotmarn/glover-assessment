@@ -55,3 +55,11 @@ Here is how you can run the project locally:
         "password": "glover1234"
     }
     ```
+1. Administrator logout
+    ```
+    /api/auth/logout
+    ```
+    ### Header
+    ```json
+    Authorization: Bearer {{ token }}
+    ```
