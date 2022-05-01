@@ -29,21 +29,23 @@ class UserRepository implements UserInterface
             'payload' => json_encode($request)
         ]);
 
-        $admins = User::whereHas('roles', function ($query) {
-            $query->where('name', 'admin');
-        })->whereNot('id', \request()->user()->id)->get();
-
-        if ($admins) {
-            foreach ($admins as $admin) {
-                $admin->notify(new RequestEmailNotification());
-            }
-        }
+        $this->notifyAdmin();
 
         return $data;
     }
 
     public function update($request)
     {
+        $data = $this->user_request->create([
+            'admin_id' => \request()->user()->id,
+            'request_type' => RequestType::UPDATE,
+            'payload' => json_encode($request),
+            'user_id' => $request['user_id']
+        ]);
+
+        $this->notifyAdmin();
+
+        return $data;
     }
 
     public function delete($request)
@@ -78,7 +80,7 @@ class UserRepository implements UserInterface
 
             if ($action == RequestStatus::APPROVE) {
 
-                ($request->request_type == RequestType::CREATE) ? $this->createUser($request->payload) : $this->updateUser($request->user_id, $request->payload);
+                ($request->request_type == RequestType::CREATE) ? $this->createUser($request->payload) : (($request->request_type == RequestType::UPDATE) ? $this->updateUser($request->user_id, $request->payload) : $this->deleteUser($request->user_id));
 
                 return $request->update([
                     'status' => RequestStatus::APPROVE
@@ -129,5 +131,26 @@ class UserRepository implements UserInterface
 
 
         $user->update($payload);
+    }
+
+    private function deleteUser($user_id)
+    {
+        $user = $this->user->where('id', $user_id)->first();
+        if($user) {
+            $user->delete();
+        }
+    }
+
+    private function notifyAdmin()
+    {
+        $admins = User::whereHas('roles', function ($query) {
+            $query->where('name', 'admin');
+        })->whereNot('id', \request()->user()->id)->get();
+
+        if ($admins) {
+            foreach ($admins as $admin) {
+                $admin->notify(new RequestEmailNotification());
+            }
+        }
     }
 }
