@@ -5,6 +5,7 @@ namespace App\Repositories\User;
 use App\Models\User;
 use App\Enums\RequestType;
 use App\Models\UserRequest;
+use App\Enums\RequestStatus;
 use App\Notifications\RequestEmailNotification;
 
 class UserRepository implements UserInterface
@@ -45,5 +46,10 @@ class UserRepository implements UserInterface
     public function delete($request)
     {
 
+    }
+
+    public function fetch()
+    {
+        return $this->user_request->whereNot('admin_id', \request()->user()->id)->where('status', RequestStatus::PENDING)->get();
     }
 }

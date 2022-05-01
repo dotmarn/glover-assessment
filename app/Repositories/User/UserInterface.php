@@ -10,4 +10,6 @@ interface UserInterface
 
     public function delete($request);
 
+    public function fetch();
+
 }

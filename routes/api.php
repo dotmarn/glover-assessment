@@ -38,6 +38,8 @@ Route::controller(UsersController::class)->group(function() {
 
         Route::post('/create-user', 'create')->name('create');
 
+        Route::get('/fetch-pending-request', 'view')->name('view');
+
     });
 
 });

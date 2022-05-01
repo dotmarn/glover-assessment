@@ -23,10 +23,10 @@ class UsersController extends Controller
         $user = $this->users_repo->create($validated);
 
         if ($user) {
-           return response()->json([
-            'message' => 'Request saved successfully',
-            'data' => $user
-           ], Response::HTTP_OK);
+            return response()->json([
+                'message' => 'Request saved successfully',
+                'data' => $user
+            ], Response::HTTP_OK);
         }
 
         return response()->json([
@@ -35,4 +35,12 @@ class UsersController extends Controller
         ], Response::HTTP_BAD_REQUEST);
     }
 
+    public function view()
+    {
+        $data = $this->users_repo->fetch();
+        return response()->json([
+            'message' => 'Records retrieved successfully.',
+            'data' => $data
+        ], Response::HTTP_OK);
+    }
 }
