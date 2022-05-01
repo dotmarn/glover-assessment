@@ -4,7 +4,7 @@ namespace App\Repositories\User;
 
 interface UserInterface
 {
-    public function create($request);
+    public function create(array $request);
 
     public function update($request);
 
