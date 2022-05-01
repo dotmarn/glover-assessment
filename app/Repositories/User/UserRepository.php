@@ -2,8 +2,10 @@
 
 namespace App\Repositories\User;
 
+use App\Models\User;
 use App\Enums\RequestType;
 use App\Models\UserRequest;
+use App\Notifications\RequestEmailNotification;
 
 class UserRepository implements UserInterface
 {
@@ -21,7 +23,18 @@ class UserRepository implements UserInterface
             'payload' => json_encode($request)
         ]);
 
+        $admins = User::whereHas('roles', function($query) {
+            $query->where('name', 'admin');
+        })->whereNot('id', \request()->user()->id)->get();
+
+        if ($admins) {
+            foreach($admins as $admin) {
+                $admin->notify(new RequestEmailNotification());
+            }
+        }
+
         return $data;
+
     }
 
     public function update($request)
