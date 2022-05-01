@@ -57,6 +57,7 @@ class UserRepository implements UserInterface
         ]);
 
         event(new UserRequestEvent());
+
         return $data;
     }
 
@@ -90,7 +91,8 @@ class UserRepository implements UserInterface
                 ($request->request_type == RequestType::CREATE) ? $this->createUser($request->payload) : (($request->request_type == RequestType::UPDATE) ? $this->updateUser($request->payload) : $this->deleteUser($request->user_id));
 
                 return $request->update([
-                    'status' => RequestStatus::APPROVE
+                    'status' => RequestStatus::APPROVE,
+                    'approved_by' => \request()->user()->id
                 ]);
 
             } else {

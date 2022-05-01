@@ -40,7 +40,7 @@ Route::controller(UsersController::class)->group(function() {
 
         Route::get('/fetch-pending-request', 'view')->name('view-request');
 
-        Route::post('/mark-request/{id}/{type}', 'takeAction')->name('mark-request');
+        Route::post('/mark-request', 'takeAction')->name('mark-request');
 
         Route::post('/update-user-request', 'update')->name('update-request');
 

@@ -46,11 +46,11 @@ class UsersController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function takeAction(int $id, string $type)
+    public function takeAction(Request $request)
     {
-        $type = ($type == 'approve') ? RequestStatus::APPROVE : RequestStatus::DECLINE;
+        $type = ($request->action_type == 'approve') ? RequestStatus::APPROVE : RequestStatus::DECLINE;
 
-        $this->users_repo->takeAction($id, $type);
+        $this->users_repo->takeAction($request->request_id, $type);
 
         return response()->json([
             'message' => "Request has been {$type} successfully.",
