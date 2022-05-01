@@ -36,13 +36,15 @@ Route::controller(UsersController::class)->group(function() {
 
     Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'check-admin']], function() {
 
-        Route::post('/create-user', 'create')->name('create');
+        Route::post('/create-user-request', 'create')->name('create-request');
 
-        Route::get('/fetch-pending-request', 'view')->name('view');
+        Route::get('/fetch-pending-request', 'view')->name('view-request');
 
         Route::post('/mark-request/{id}/{type}', 'takeAction')->name('mark-request');
 
-        Route::post('/update-user', 'update')->name('update');
+        Route::post('/update-user-request', 'update')->name('update-request');
+
+        Route::post('/delete-user-request/{id}', 'delete')->name('delete-request');
 
     });
 

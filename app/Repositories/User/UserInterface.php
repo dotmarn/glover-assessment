@@ -6,7 +6,7 @@ interface UserInterface
 {
     public function create(array $request);
 
-    public function update($request);
+    public function update(array $request);
 
     public function delete($request);
 
