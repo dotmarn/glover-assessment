@@ -46,7 +46,7 @@ Here is how you can run the project locally:
 
 1. Administrator login
     ```sh
-    /api/auth/login
+    POST /api/auth/login
     ```
     ### payload
     ```json
@@ -74,10 +74,46 @@ Here is how you can run the project locally:
     ```
 
 1. Administrator logout
-    ```
-    /api/auth/logout
+    ```sh
+    POST /api/auth/logout
     ```
     ### Header
     ```json
-    "Authorization": "Bearer {{ token }}"
+    "Authorization": "Bearer {{ token }}" //token from the login response
     ```
+    ### sample response
+    ```json
+    {
+        "status": 200,
+        "message": "You have been logged out successfully.",
+        "data": null
+    }
+    ```
+
+1. Create User Request
+    ```sh
+    POST /api/admin/create-user-request
+    ```
+    ### payload
+    ```json
+    {
+        "firstname": "hghghgg",
+        "lastname": "slslslls",
+        "email": "adetayo@gmail.com"
+    }
+    ```
+    ### sample response
+    ```json
+    {
+        "message": "Request saved successfully",
+        "data": {
+            "admin_id": 1,
+            "request_type": "create",
+            "payload": "{\"firstname\":\"hghghgg\",\"lastname\":\"slslslls\",\"email\":\"adetayo@gmail.com\"}",
+            "updated_at": "2022-05-01T12:59:11.000000Z",
+            "created_at": "2022-05-01T12:59:11.000000Z",
+            "id": 18
+        }
+    }
+    ```
+
