@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class UserRequest extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'admin_id',
+        'request_type',
+        'user_id',
+        'payload',
+        'status',
+        'approved_by'
+    ];
 }
