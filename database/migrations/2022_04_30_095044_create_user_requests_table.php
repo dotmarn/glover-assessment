@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('user_requests', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('requester_id');
+            $table->unsignedBigInteger('admin_id');
             $table->integer('user_id')->nullable();
             $table->enum('request_type',['create', 'update', 'delete']);
-            $table->json('payload');
+            $table->json('payload')->nullable();
             $table->enum('status',['pending', 'approved', 'declined'])->default('pending');
-            $table->unsignedBigInteger('approved_by');
+            $table->unsignedBigInteger('approved_by')->nullable();
             $table->timestamps();
 
-            $table->foreign('requester_id')
+            $table->foreign('admin_id')
                     ->references('id')
                     ->on('users')
                     ->onDelete('cascade');
