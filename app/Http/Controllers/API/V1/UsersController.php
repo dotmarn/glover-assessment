@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Enums\RequestStatus;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -43,4 +44,18 @@ class UsersController extends Controller
             'data' => $data
         ], Response::HTTP_OK);
     }
+
+    public function takeAction(int $id, string $type)
+    {
+        $type = ($type == 'approve') ? RequestStatus::APPROVE : RequestStatus::DECLINE;
+
+        $this->users_repo->takeAction($id, $type);
+
+        return response()->json([
+            'message' => "Request has been {$type} successfully.",
+            'data' => null
+        ], Response::HTTP_OK);
+
+    }
+
 }

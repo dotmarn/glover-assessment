@@ -34,11 +34,13 @@ Route::controller(AuthController::class)->group(function() {
 
 Route::controller(UsersController::class)->group(function() {
 
-    Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function() {
+    Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'check-admin']], function() {
 
         Route::post('/create-user', 'create')->name('create');
 
         Route::get('/fetch-pending-request', 'view')->name('view');
+
+        Route::post('/mark-request/{id}/{type}', 'takeAction')->name('mark-request');
 
     });
 

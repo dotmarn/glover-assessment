@@ -12,4 +12,6 @@ interface UserInterface
 
     public function fetch();
 
+    public function takeAction(int $id, string $type);
+
 }
