@@ -7,8 +7,8 @@ use App\Enums\RequestType;
 use App\Models\UserRequest;
 use App\Enums\RequestStatus;
 use Illuminate\Http\Response;
+use App\Events\UserRequestEvent;
 use Illuminate\Support\Facades\Hash;
-use App\Notifications\RequestEmailNotification;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserRepository implements UserInterface
@@ -29,7 +29,7 @@ class UserRepository implements UserInterface
             'payload' => json_encode($request)
         ]);
 
-        $this->notifyAdmin();
+        event(new UserRequestEvent());
 
         return $data;
     }
@@ -43,7 +43,7 @@ class UserRepository implements UserInterface
             'user_id' => $request['user_id']
         ]);
 
-        $this->notifyAdmin();
+        event(new UserRequestEvent());
 
         return $data;
     }
@@ -56,8 +56,7 @@ class UserRepository implements UserInterface
             'user_id' => $id
         ]);
 
-        $this->notifyAdmin();
-
+        event(new UserRequestEvent());
         return $data;
     }
 
@@ -88,7 +87,7 @@ class UserRepository implements UserInterface
 
             if ($action == RequestStatus::APPROVE) {
 
-                ($request->request_type == RequestType::CREATE) ? $this->createUser($request->payload) : (($request->request_type == RequestType::UPDATE) ? $this->updateUser($request->user_id, $request->payload) : $this->deleteUser($request->user_id));
+                ($request->request_type == RequestType::CREATE) ? $this->createUser($request->payload) : (($request->request_type == RequestType::UPDATE) ? $this->updateUser($request->payload) : $this->deleteUser($request->user_id));
 
                 return $request->update([
                     'status' => RequestStatus::APPROVE
@@ -122,11 +121,11 @@ class UserRepository implements UserInterface
 
     }
 
-    private function updateUser($user_id, $data)
+    private function updateUser($data)
     {
-        $user = $this->user->where('id', $user_id)->first();
-
         $data = json_decode($data);
+
+        $user = $this->user->where('id', $data->user_id)->first();
 
         if (isset($data->firstname))
             $payload['firstname'] = $data->firstname;
@@ -149,16 +148,8 @@ class UserRepository implements UserInterface
         }
     }
 
-    private function notifyAdmin()
+    private function checkRequestType($request)
     {
-        $admins = User::whereHas('roles', function ($query) {
-            $query->where('name', 'admin');
-        })->whereNot('id', \request()->user()->id)->get();
-
-        if ($admins) {
-            foreach ($admins as $admin) {
-                $admin->notify(new RequestEmailNotification());
-            }
-        }
+        return ($request->request_type == RequestType::CREATE) ? $this->createUser($request->payload) : (($request->request_type == RequestType::UPDATE) ? $this->updateUser($request->payload) : $this->deleteUser($request->user_id));
     }
 }
