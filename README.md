@@ -82,7 +82,7 @@ Here is how you can run the project locally:
     POST /api/auth/logout
     ```
     ### Header
-    ```json
+    ```
     "Authorization": "Bearer {{ token }}" //token from the login response
     ```
     ### sample response
@@ -99,7 +99,7 @@ Here is how you can run the project locally:
     POST /api/admin/create-user-request
     ```
     ### Header
-    ```json
+    ```
     "Authorization": "Bearer {{ token }}" //token from the login response
     ```
     ### payload
@@ -129,7 +129,7 @@ Here is how you can run the project locally:
     POST /api/admin/update-user-request
     ```
     ### Header
-    ```json
+    ```
     "Authorization": "Bearer {{ token }}" //token from the login response
     ```
     ### payload
@@ -161,7 +161,7 @@ Here is how you can run the project locally:
     GET /api/admin/fetch-pending-request
     ```
     ### Header
-    ```json
+    ```
     "Authorization": "Bearer {{ token }}" //token from the login response
     ```
     ### sample response
@@ -188,7 +188,7 @@ Here is how you can run the project locally:
     POST /api/admin/mark-request
     ```
     ### Header
-    ```json
+    ```
     "Authorization": "Bearer {{ token }}" //token from the login response
     ```
     ### payload
@@ -216,15 +216,15 @@ Here is how you can run the project locally:
     ### sample response
     ```json
         {
-        "message": "Request saved successfully",
-        "data": {
-            "admin_id": 2,
-            "request_type": "delete",
-            "user_id": 3,
-            "updated_at": "2022-05-02T13:45:38.000000Z",
-            "created_at": "2022-05-02T13:45:38.000000Z",
-            "id": 2
+            "message": "Request saved successfully",
+            "data": {
+                "admin_id": 2,
+                "request_type": "delete",
+                "user_id": 3,
+                "updated_at": "2022-05-02T13:45:38.000000Z",
+                "created_at": "2022-05-02T13:45:38.000000Z",
+                "id": 2
+            }
         }
-    }
     ```
 
