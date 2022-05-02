@@ -41,6 +41,10 @@ Here is how you can run the project locally:
     ```sh
     php artisan serve
     ``` 
+1. Run tests
+    ```sh
+    php artisan test
+    ``` 
 
 ## API Endpoints
 
