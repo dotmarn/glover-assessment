@@ -78,6 +78,10 @@ class UsersController extends Controller
         ], Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * @param int $id
+     * $id is the id of the user to delete
+     */
     public function delete(int $id)
     {
         $user = $this->users_repo->delete($id);
