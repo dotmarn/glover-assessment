@@ -30,6 +30,17 @@ class MakerCheckerTest extends TestCase
         );
     }
 
+    public function test_that_user_can_login()
+    {
+        $payload = [
+            "email" => "admin00@sample.test",
+            "password" => "glover1234"
+        ];
+
+        $response = $this->post('/api/auth/login', $payload);
+        $response->assertStatus(Response::HTTP_OK);
+    }
+
     public function test_that_validation_error_is_returned_if_a_parameter_is_not_supplied_when_creating_request()
     {
         $payload = [
