@@ -150,8 +150,4 @@ class UserRepository implements UserInterface
         }
     }
 
-    private function checkRequestType($request)
-    {
-        return ($request->request_type == RequestType::CREATE) ? $this->createUser($request->payload) : (($request->request_type == RequestType::UPDATE) ? $this->updateUser($request->payload) : $this->deleteUser($request->user_id));
-    }
 }
